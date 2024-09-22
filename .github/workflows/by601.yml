@@ -52,4 +52,4 @@ jobs:
       - uses: actions/upload-artifact@v3
         with:
           name: TWRP image
-          path: 'twrp-*_gionee6735_65c_l1.img'
+          path: 'twrp-*.img'
