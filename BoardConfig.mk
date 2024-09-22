@@ -32,12 +32,14 @@ TARGET_2ND_CPU_VARIANT := generic
 TARGET_BOARD_PLATFORM := mt6735
 TARGET_NO_BOOTLOADER := true
 
-# MiKidsWatch_F3 kernel
 TARGET_PREBUILT_KERNEL := $(LOCAL_PATH)/prebuilt/kernel
-BOARD_KERNEL_OFFSET := 0x00008000
 BOARD_KERNEL_PAGESIZE := 2048
-BOARD_RAMDISK_OFFSET := 0x03f88000
-BOARD_TAGS_OFFSET := 0x0df88000
+BOARD_KERNEL_BASE := 0x40078000
+BOARD_MKBOOTIMG_ARGS := \
+	--kernel_offset 0x00008000 \
+	--ramdisk_offset 0x03f88000 \
+	--second_offset 0x00e88000 \
+	--tags_offset 0x0df88000
 BOARD_KERNEL_CMDLINE := bootopt=64S3,32N2,64N2 androidboot.selinux=permissive
 
 # allow building ramdisk(s) with lzma
