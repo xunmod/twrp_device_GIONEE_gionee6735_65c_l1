@@ -40,9 +40,9 @@ BOARD_RAMDISK_OFFSET := 0x03f88000
 BOARD_TAGS_OFFSET := 0x0df88000
 BOARD_KERNEL_CMDLINE := bootopt=64S3,32N2,64N2 androidboot.selinux=permissive
 
-# not allow building ramdisk(s) with lzma
-# LZMA_RAMDISK_TARGETS += recovery
-# LZMA_COMPRESSION := -9
+# allow building ramdisk(s) with lzma
+LZMA_RAMDISK_TARGETS += recovery
+LZMA_COMPRESSION := -9
 
 # MTK Hardware
 BOARD_HAS_MTK_HARDWARE := true
@@ -51,7 +51,6 @@ MTK_HARDWARE := true
 
 # Partitions
 BOARD_RECOVERYIMAGE_PARTITION_SIZE := 16777216
-#BOARD_USES_FULL_RECOVERY_IMAGE := true
 BOARD_FLASH_BLOCK_SIZE := 131072 # (BOARD_KERNEL_PAGESIZE * 64)
 
 # Recovery
@@ -59,7 +58,7 @@ BOARD_HAS_LARGE_FILESYSTEM := true
 TARGET_USERIMAGES_USE_EXT4 := true
 BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE := ext4
 
-#Recovery FSTAB
+# Recovery FSTAB
 TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/recovery/root/etc/recovery.fstab
 
 # TWRP stuff
@@ -72,9 +71,11 @@ TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/mt_usb/musb-hdrc.0.auto
 TW_CUSTOM_CPU_TEMP_PATH := /sys/devices/virtual/thermal/thermal_zone1/temp
 TW_DEFAULT_LANGUAGE := zh_CN
 TW_EXCLUDE_TWRPAPP := true
-TW_INCLUDE_FB2PNG := true
+TW_EXCLUDE_BASH := true
+TW_EXCLUDE_PYTHON := true
+TW_EXCLUDE_FB2PNG := true
+TW_EXCLUDE_TWRPAPP := true
+TW_INCLUDE_SUPERSU := true
 TW_INCLUDE_NTFS_3G := true
-TW_INCLUDE_FUSE_EXFAT := true
 TW_INCLUDE_CRYPTO := true
 TW_INCLUDE_NANO := true
-TW_USE_TOOLBOX := true
