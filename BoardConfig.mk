@@ -32,7 +32,6 @@ TARGET_BOARD_PLATFORM := mt6735
 TARGET_NO_BOOTLOADER := true
 
 TARGET_PREBUILT_KERNEL := $(LOCAL_PATH)/prebuilt/kernel
-TARGET_BOARD_PLATFORM := 1461870701
 BOARD_KERNEL_PAGESIZE := 2048
 BOARD_KERNEL_BASE := 0x40078000
 BOARD_MKBOOTIMG_ARGS := \
@@ -48,8 +47,6 @@ BOARD_RECOVERYIMAGE_PARTITION_SIZE := 16777216
 BOARD_FLASH_BLOCK_SIZE := 131072 # (BOARD_KERNEL_PAGESIZE * 64)
 
 # allow building ramdisk(s) with lzma
-LZMA_RAMDISK_TARGETS += recovery
-LZMA_COMPRESSION := -9
 
 # Recovery
 BOARD_HAS_LARGE_FILESYSTEM := true
@@ -61,19 +58,19 @@ TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/recovery/root/etc/recovery.fstab
 
 # TWRP stuff
 RECOVERY_SDCARD_ON_DATA := true
-TW_EXTRA_LANGUAGES := true
+# TW_EXTRA_LANGUAGES := true
 TW_THEME := portrait_hdpi
 TARGET_RECOVERY_PIXEL_FORMAT := "RGBA_8888"
 TW_BRIGHTNESS_PATH := /sys/devices/platform/leds-mt65xx/leds/lcd-backlight/brightness
 TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/mt_usb/musb-hdrc.0.auto/gadget/lun0/file
 TW_CUSTOM_CPU_TEMP_PATH := /sys/devices/virtual/thermal/thermal_zone1/temp
-TW_DEFAULT_LANGUAGE := zh_CN
+# TW_DEFAULT_LANGUAGE := zh_CN
 TW_EXCLUDE_TWRPAPP := true
 TW_EXCLUDE_BASH := true
 TW_EXCLUDE_PYTHON := true
 TW_EXCLUDE_FB2PNG := true
 TW_EXCLUDE_TWRPAPP := true
 TW_EXCLUDE_SUPERSU := true
-TW_INCLUDE_NTFS_3G := true
+TW_EXCLUDE_NTFS_3G := true
 TW_INCLUDE_CRYPTO := true
-TW_INCLUDE_NANO := true
+TW_EXCLUDE_NANO := true
