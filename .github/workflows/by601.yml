@@ -1,0 +1,55 @@
+name: Compile TWRP by omnirom 6.0.1
+on:
+  push:
+    branches: [ 'twrp-6.0' ]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/catthehacker/ubuntu:runner-18.04
+    env:
+      LC_ALL: "C"
+    steps:
+      - name: Configure
+        run: |
+          curl https://storage.googleapis.com/git-repo-downloads/repo | sudo tee /usr/bin/repo > /dev/null
+          sudo ln -sf /usr/bin/python3 /usr/bin/python
+          sudo chmod +x /usr/bin/repo
+          # sudo apt remove -yq openjdk*
+          sudo apt update
+          sudo apt install -yq bc bison build-essential curl flex g++-multilib gcc-multilib git gnupg gperf imagemagick lib32ncurses5-dev lib32readline-dev lib32z1-dev liblz4-tool libncurses5 libncurses5-dev libsdl1.2-dev libssl-dev libxml2 libxml2-utils lzop pngcrush rsync schedtool squashfs-tools xsltproc zip zlib1g-dev python bash ccache
+          git config --global user.email "116288337+xunmod@users.noreply.github.com"
+          git config --global user.name "xunmod@bot"
+          sudo su -c 'echo "deb http://security.debian.org/debian-security buster/updates main" >> /etc/apt/sources.list' root
+          sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 112695A0E562B32A 54404762BBB6E853
+          sudo apt update
+          sudo apt install libc6 libc6-dev -y
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: '8'
+      - name: Get source
+        run: |
+          mkdir $GITHUB_WORKSPACE/twrp
+          cd $GITHUB_WORKSPACE/twrp
+          repo init --depth=1 -u https://github.com/minimal-manifest-twrp/platform_manifest_twrp_omni.git -b twrp-6.0
+          repo sync -c -f --no-tags --no-clone-bundle -j$(nproc --all)
+      - name: Setup device
+        uses: actions/checkout@v3
+        with:
+          path: 'twrp/device/GIONEE/gionee6735_65c_l1'
+      - name: Build
+        shell: bash
+        run: |
+          sudo rm -f /usr/bin/python /usr/bin/python3.6 /usr/bin/python3.6m /usr/local/bin/python
+          sudo ln -sf /usr/bin/python2.7 /usr/bin/python
+          cd $GITHUB_WORKSPACE/twrp
+          source build/envsetup.sh
+          lunch omni_gionee6735_65c_l1-eng
+          mka -j$(nproc --all) recoveryimage
+          export twrp_version=$(cat bootable/recovery/variables.h | grep "define TW_MAIN_VERSION_STR" | cut -d '"' -f2)
+          cp out/target/product/gionee6735_65c_l1/recovery.img ../twrp-${twrp_version}_0-gionee6735_65c_l1.img
+      - uses: actions/upload-artifact@v3
+        with:
+          name: TWRP image
+          path: 'twrp-*_gionee6735_65c_l1.img'
