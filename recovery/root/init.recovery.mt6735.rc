@@ -3,20 +3,3 @@ on init
     insmod /sec.ko
     mknod /dev/sec c 182 0
     chmod 0660 /dev/sec
-
-on fs
-    write /proc/bootprof "start mobicore (on fs)"
-    chmod 0600 /dev/mobicore
-    chown system system /dev/mobicore
-    chmod 0666 /dev/mobicore-user
-    chown system system /dev/mobicore-user
-    # MobiCore Daemon Paths
-    export MC_AUTH_TOKEN_PATH /efs
-    start mobicore
-    write /proc/bootprof "start mobicore end (on fs)"
-
-service mobicore /system/bin/mcDriverDaemon -r /system/app/mcRegistry/020f0000000000000000000000000000.drbin -r /system/app/mcRegistry/05120000000000000000000000000000.drbin -r /system/app/mcRegistry/070b0000000000000000000000000000.drb
-    user system
-    group system
-    class core
-    oneshot

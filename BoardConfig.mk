@@ -39,15 +39,12 @@ BOARD_MKBOOTIMG_ARGS := \
 	--ramdisk_offset 0x03f88000 \
 	--second_offset 0x00e88000 \
 	--tags_offset 0x0df88000 \
-	--board 1461870701
+	--board 1463158499
 BOARD_KERNEL_CMDLINE := bootopt=64S3,32N2,64N2 androidboot.selinux=permissive
 
 # Partitions
 BOARD_RECOVERYIMAGE_PARTITION_SIZE := 16777216
 BOARD_FLASH_BLOCK_SIZE := 131072 # (BOARD_KERNEL_PAGESIZE * 64)
-
-# allow building ramdisk(s) with lzma
-BOARD_RAMDISK_USE_LZMA := true
 
 # Recovery
 BOARD_HAS_LARGE_FILESYSTEM := true
@@ -69,9 +66,9 @@ TW_CUSTOM_CPU_TEMP_PATH := /sys/devices/virtual/thermal/thermal_zone1/temp
 TW_EXCLUDE_TWRPAPP := true
 TW_EXCLUDE_BASH := true
 TW_EXCLUDE_PYTHON := true
-TW_EXCLUDE_FB2PNG := true
+TW_INCLUDE_FB2PNG := true
 TW_EXCLUDE_TWRPAPP := true
 TW_EXCLUDE_SUPERSU := true
-TW_EXCLUDE_NTFS_3G := true
+TW_INCLUDE_NTFS_3G := true
 TW_INCLUDE_CRYPTO := true
-TW_EXCLUDE_NANO := true
+TW_INCLUDE_NANO := true
