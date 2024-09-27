@@ -1,7 +1,7 @@
-name: Compile TWRP by omnirom 6.0.1
+name: Compile TWRP by omnirom 7.1.2
 on:
   push:
-    branches: [ 'twrp-6.0' ]
+    branches: [ 'twrp-7.1' ]
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -32,11 +32,12 @@ jobs:
         run: |
           mkdir $GITHUB_WORKSPACE/twrp
           cd $GITHUB_WORKSPACE/twrp
-          repo init --depth=1 -u https://github.com/xunmod/platform_manifest_twrp_omni.git -b twrp-6.0
+          repo init --depth=1 -u https://github.com/xunmod/platform_manifest_twrp_omni.git -b twrp-7.1
           repo sync -c -f --no-tags --no-clone-bundle -j$(nproc --all)
       - name: Setup device
         uses: actions/checkout@v3
         with:
+          ref: 'twrp-7.1'
           path: 'twrp/device/GIONEE/gionee6735_65c_l1'
       - name: Build
         shell: bash
