@@ -54,6 +54,10 @@ BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE := ext4
 # Recovery FSTAB
 TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/recovery/root/etc/recovery.fstab
 
+# allow building ramdisk(s) with lzma
+LZMA_RAMDISK_TARGETS += recovery
+LZMA_COMPRESSION := -9
+
 # TWRP stuff
 RECOVERY_SDCARD_ON_DATA := true
 # TW_EXTRA_LANGUAGES := true
