@@ -8,5 +8,5 @@
 /protect_s emmc /dev/block/platform/mtk-msdc.0/by-name/protect2 flags=backup=1;flashimg=1
 /nvdata ext4 /dev/block/platform/mtk-msdc.0/by-name/nvdata flags=backup=1;flashimg=1
 /persistent emmc /dev/block/platform/mtk-msdc.0/by-name/frp flags=backup=1;flashimg=1;wipeingui
-/external_sd auto /devices/mtk-msdc.0/11230000.MSDC0 /devices/mtk-msdc.0/11230000.MSDC1 flags=storage;removable
-/usb-otg auto /devices/platform/mt_usb flags=storage;removable
+/external_sd auto /dev/block/mmcblk1 /dev/block/mmcblk1p1 flags=storage;removable
+/usb-otg auto /dev/block/sda /dev/block/sda1 flags=storage;removable
